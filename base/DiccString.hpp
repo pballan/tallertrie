@@ -116,7 +116,9 @@ DiccString<T>::DiccString(const DiccString& d) {
 template <typename T>
 DiccString<T>::~DiccString(){
 
-  
+  while (claves.cardinal() > 0) {
+    Borrar(claves.minimo());
+  }
 
 }
 
@@ -128,9 +130,7 @@ void DiccString<T>::Definir(const string& clave, const T& significado){
   aux = this->raiz;
   int largo = clave.length();
 
-
   for (int i = 0; i < largo; i++) {
-
     if (aux->siguientes[int(clave[i])] == NULL){
       Nodo* nuevo = new Nodo();
       aux->siguientes[int(clave[i])] = nuevo;
@@ -138,14 +138,11 @@ void DiccString<T>::Definir(const string& clave, const T& significado){
     }else{
       aux = aux->siguientes[int(clave[i])];
     }
-
   }
 
   if (aux->definicion != NULL)
     delete aux->definicion;
-
   aux->definicion = new T(significado);
-
   this->claves.insertar(clave);
 
 }
@@ -208,10 +205,16 @@ void DiccString<T>::Borrar(const string& clave) {
   }
 
   for (int i = ultimoIndice; i < largo; i++) {
+    cout << clave[i] << endl;
     aBorrar = ultimoNodo;
     ultimoNodo = ultimoNodo->siguientes[int(clave[i])];
-
     delete aBorrar;
+  }
+
+  delete ultimoNodo->siguientes[int(clave[largo])];
+
+  if (claves.cardinal() == 1){
+    delete raiz;
   }
   claves.remover(clave);
 
