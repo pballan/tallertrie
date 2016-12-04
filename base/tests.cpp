@@ -446,10 +446,10 @@ int main() {
 	RUN_TEST(test_claves);
 	RUN_TEST(test_obtener);
 	RUN_TEST(test_redefinir_obtener);
-//	RUN_TEST(test_constructor_copia);
-//	RUN_TEST(test_constructor_copia2);
+	RUN_TEST(test_constructor_copia);
+	RUN_TEST(test_constructor_copia2);
 	RUN_TEST(test_definir_sin_asignacion);
-//	RUN_TEST(test_trie_con_significado_tries);
+	RUN_TEST(test_trie_con_significado_tries);
 	RUN_TEST(test_dicc_vacio_con_definir_y_borrar);
 	RUN_TEST(test_dicc_borrar);
 	return 0;

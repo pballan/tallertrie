@@ -97,25 +97,27 @@ class DiccString {
 
 template <typename T>
 DiccString<T>::DiccString(){
-    raiz = new Nodo();
+  raiz = new Nodo();
 }
 
 
 template <typename T>
 DiccString<T>::DiccString(const DiccString& d) {
   Conj<string> conjAux = Conj<string>(d.Claves());
+  raiz = new Nodo();
 
   while (conjAux.cardinal() > 0){
     Definir(conjAux.minimo(),d.Obtener(conjAux.minimo()));
     conjAux.remover(conjAux.minimo());
   }
+
 }
 
 template <typename T>
 DiccString<T>::~DiccString(){
 
-	//TODO
-  //  assert(false);
+  
+
 }
 
 
@@ -123,13 +125,12 @@ template <typename T>
 void DiccString<T>::Definir(const string& clave, const T& significado){
 
   Nodo* aux;
-
   aux = this->raiz;
-
-
   int largo = clave.length();
 
+
   for (int i = 0; i < largo; i++) {
+
     if (aux->siguientes[int(clave[i])] == NULL){
       Nodo* nuevo = new Nodo();
       aux->siguientes[int(clave[i])] = nuevo;
@@ -137,6 +138,7 @@ void DiccString<T>::Definir(const string& clave, const T& significado){
     }else{
       aux = aux->siguientes[int(clave[i])];
     }
+
   }
 
   if (aux->definicion != NULL)
