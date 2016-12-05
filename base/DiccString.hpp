@@ -116,7 +116,7 @@ template <typename T>
 DiccString<T>::~DiccString(){
 
   while (claves.cardinal() > 0) {
-    cout << "Elemento de el cjto: " << claves.minimo() << endl;
+    //cout << "Elemento de el cjto: " << claves.minimo() << endl;
     Borrar(claves.minimo());
   }
   delete raiz;
@@ -129,15 +129,15 @@ void DiccString<T>::Definir(const string& clave, const T& significado){
   Nodo* aux;
   aux = this->raiz;
   int largo = clave.length();
-  cout << "Estoy definiendo: " << clave << endl;
+//  cout << "Estoy definiendo: " << clave << endl;
   for (int i = 0; i < largo; i++) {
     if (aux->siguientes[int(clave[i])] == NULL){
-      cout << "Creo nuevo nodo con la letra: "  << clave[i] << endl;
+      //cout << "Creo nuevo nodo con la letra: "  << clave[i] << endl;
       Nodo* nuevo = new Nodo();
       aux->siguientes[int(clave[i])] = nuevo;
       aux = aux->siguientes[int(clave[i])];
     }else{
-      cout << "Sigo todo bien con la letra: " << clave[i] << endl;
+      //cout << "Sigo todo bien con la letra: " << clave[i] << endl;
       aux = aux->siguientes[int(clave[i])];
     }
   }
@@ -203,30 +203,41 @@ void DiccString<T>::Borrar(const string& clave) {
   Nodo* aBorrar;
 
   for (int i = 0; i < largo; i++) {
-    if (masDeDosClaves_o_esRaiz(aux)){
+    if (masDeDosClaves_o_esRaiz(aux) || aux->definicion != NULL){
       ultimoNodo = aux->siguientes[int(clave[i])];
       ultimoIndice = i+1;
-    }else if (aux->definicion != NULL){
-      ultimoNodo = aux;
-      ultimoIndice = i;
     }
     aux = aux->siguientes[int(clave[i])];
   }
 
   bool paso = false;
+
   for (int i = ultimoIndice; i < largo  ; i++) {
 
     aBorrar = ultimoNodo;
     ultimoNodo = ultimoNodo->siguientes[int(clave[i])];
+
     cout << "Borrando la letra: " << clave[i-1] << endl;
+    cout << "Borrando def: " << aBorrar->definicion << endl;
+    delete aBorrar->definicion;
     delete aBorrar;
+
     paso = true;
   }
+  
   delete ultimoNodo;
 
+  /*if(paso){
+    if(ultimoNodo->definicion != NULL){  
+      cout << ultimoNodo->definicion << endl;
+      delete ultimoNodo;
+    }else{
+      delete ultimoNodo->definicion;
+    }
+  }
+*/
   claves.remover(clave);
-  if (claves.cardinal() == 0)
-    delete raiz;
+  if (claves.cardinal() == 0 && !paso){ cout << "Triaidsadasdasd" <<endl;  delete raiz->definicion; delete raiz;}
 
 }
 
@@ -242,7 +253,7 @@ bool DiccString<T>::masDeDosClaves_o_esRaiz(Nodo* nodo){
     if (aux == raiz) esraiz = true;
     i++;
   }
-  cout << "Cantidad es: " << cant << endl;
+  //cout << "Cantidad es: " << cant << endl;
   return ((cant > 1) || esraiz);
 }
 

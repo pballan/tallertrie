@@ -411,7 +411,7 @@ void test_dicc_borrar() {
 	ASSERT( d.Definido("casona") );
 	ASSERT(d.Claves().cardinal() == 3);
 
-	d.Borrar("casa");
+	/*d.Borrar("casa");
 	ASSERT( d.Definido("hola") );
 	ASSERT( !d.Definido("casa") );
 	ASSERT( d.Definido("casona") );
@@ -432,13 +432,13 @@ void test_dicc_borrar() {
 	d.Borrar("c");
 	ASSERT(d.Claves().cardinal() == 1);
 	d.Borrar("hola");
-	ASSERT(d.Claves().cardinal() == 0);
+	ASSERT(d.Claves().cardinal() == 0);*/
 }
 
 
 
 int main() {
-	RUN_TEST(test_claves_dicc_vacio);
+	/*RUN_TEST(test_claves_dicc_vacio);
 	RUN_TEST(test_definido_dicc_vacio);
 	RUN_TEST(test_definir_definido);
 	RUN_TEST(test_definir_no_definine_los_prefigos);
@@ -450,7 +450,7 @@ int main() {
 	RUN_TEST(test_constructor_copia2);
 	RUN_TEST(test_definir_sin_asignacion);
 	RUN_TEST(test_trie_con_significado_tries);
-	RUN_TEST(test_dicc_vacio_con_definir_y_borrar);
+	RUN_TEST(test_dicc_vacio_con_definir_y_borrar);*/
 	RUN_TEST(test_dicc_borrar);
 	return 0;
 
