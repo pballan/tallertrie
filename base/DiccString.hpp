@@ -222,17 +222,11 @@ void DiccString<T>::Borrar(const string& clave) {
     delete aBorrar;
     paso = true;
   }
-  
   delete ultimoNodo;
-/*
-  if(paso){
-    delete ultimoNodo->definicion;
-    delete [] ultimoNodo->siguientes;
-  } else {
-    delete ultimoNodo->definicion;
-    delete [] ultimoNodo->siguientes;
-  }*/
+
   claves.remover(clave);
+  if (claves.cardinal() == 0)
+    delete raiz;
 
 }
 
