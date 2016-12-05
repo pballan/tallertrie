@@ -88,7 +88,6 @@ class DiccString {
                 };
 
                 bool masDeDosClaves_o_defAntes_o_esRaiz(DiccString<T>::Nodo* a);
-                //TODO: funciones auxiliares
 
                 Nodo* raiz;
                 Conj<string> claves;
@@ -119,7 +118,7 @@ DiccString<T>::~DiccString(){
   while (claves.cardinal() > 0) {
     Borrar(claves.minimo());
   }
-
+  delete raiz;
 }
 
 
@@ -140,8 +139,11 @@ void DiccString<T>::Definir(const string& clave, const T& significado){
     }
   }
 
-  if (aux->definicion != NULL)
+  if (aux->definicion != NULL){
     delete aux->definicion;
+    aux->definicion = NULL;
+  }
+
   aux->definicion = new T(significado);
   this->claves.insertar(clave);
 
@@ -196,6 +198,7 @@ void DiccString<T>::Borrar(const string& clave) {
   int largo = clave.length();
   Nodo* aux = this->raiz;
   Nodo* aBorrar;
+
   for (int i = 0; i < largo; i++) {
     if (masDeDosClaves_o_defAntes_o_esRaiz(aux)){
       ultimoNodo = aux->siguientes[int(clave[i])];
@@ -205,7 +208,6 @@ void DiccString<T>::Borrar(const string& clave) {
   }
 
   for (int i = ultimoIndice; i < largo; i++) {
-    cout << clave[i] << endl;
     aBorrar = ultimoNodo;
     ultimoNodo = ultimoNodo->siguientes[int(clave[i])];
     delete aBorrar;
@@ -213,9 +215,6 @@ void DiccString<T>::Borrar(const string& clave) {
 
   delete ultimoNodo->siguientes[int(clave[largo])];
 
-  if (claves.cardinal() == 1){
-    delete raiz;
-  }
   claves.remover(clave);
 
 }
